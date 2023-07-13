@@ -25,7 +25,7 @@ You can try out the Pokemon Battle Game by visiting the following URL: [https://
 
 ## Database Game
 
-The Database Game application retrieves data from a MongoDB database and allows users to play the Pokemon battle game. The application is deployed at [https://pokemongame.streamlit.app/](https://pokemongame.streamlit.app/).
+The Database Game application retrieves data from a MongoDB database and allows users to play the Pokemon battle game. The application is deployed at [https://pokemongamedb.streamlit.app/](https://pokemongamedb.streamlit.app/).
 
 ### Features
 
@@ -39,7 +39,7 @@ The Database Game application retrieves data from a MongoDB database and allows 
 The code for the Database Game can be found in the [PokeGame_MongoDB.py](PokeGame_MongoDB.py) file.
 
 ### Demo
-You can try out the Pokemon Battle Game by visiting the following URL: [https://pokemongame.streamlit.app/](https://pokemongame.streamlit.app/).
+You can try out the Pokemon Battle Game by visiting the following URL: [https://pokemongamedb.streamlit.app/](https://pokemongamedb.streamlit.app/).
 
 ## Team and Pokemon Selection
 
