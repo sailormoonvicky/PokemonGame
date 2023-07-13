@@ -27,11 +27,11 @@ def get_data():
     pokemo_db = client['pokemo_game']
     col_pokemon = pokemo_db['pokemos']
     return pokemo_db,col_pokemon
+pokemon_db = get_data[0]
+col_pokemon = get_data[1]
 
 # Helper function to retrieve Pokemon data from MongoDB
 def get_pokemon_data(name):
-    pokemo_db = get_data()[0]
-    col_pokemon = get_data[1]
     query = {'name':name}
     data = col_pokemon.find(query)
     for d in data:
@@ -70,7 +70,7 @@ with col3:
     st.write("")
 
 #Fetch the ranking data
-leaderboard_data = list(get_data[1].find({}, {"name": 1, "number_of_win": 1, "number_of_lose": 1}))
+leaderboard_data = list(col_pokemon.find({}, {"name": 1, "number_of_win": 1, "number_of_lose": 1}))
 df = pd.DataFrame(leaderboard_data)
 
 # Capitalize the names
@@ -146,14 +146,14 @@ def play_1player_mode():
                 round_count+=1
 
         if attacker['hp']> defender['hp']:
-            get_data[1].update_one({'name':attacker['name']},{'$inc':{'number_of_win':1}})
-            get_data[1].update_one({'name':defender['name']},{'$inc':{'number_of_lose':1}})
+            col_pokemon.update_one({'name':attacker['name']},{'$inc':{'number_of_win':1}})
+            col_pokemon.update_one({'name':defender['name']},{'$inc':{'number_of_lose':1}})
             st.header(f"{attacker['name'].capitalize()}")
             st.subheader("wins the battle!")
             st.image(attacker["image_url"])
         elif attacker['hp']< defender['hp']:
-            get_data[1].update_one({'name':defender['name']},{'$inc':{'number_of_win':1}})
-            get_data[1].update_one({'name':attacker['name']},{'$inc':{'number_of_lose':1}})
+            col_pokemon.update_one({'name':defender['name']},{'$inc':{'number_of_win':1}})
+            col_pokemon.update_one({'name':attacker['name']},{'$inc':{'number_of_lose':1}})
             st.header(f"{defender['name'].capitalize()}")
             st.subheader("wins the battle!")
             st.image(defender["image_url"])
@@ -213,14 +213,14 @@ def play_2player_mode():
                     round_count+=1
 
             if attacker['hp']> defender['hp']:
-                get_data[1].update_one({'name':attacker['name']},{'$inc':{'number_of_win':1}})
-                get_data[1].update_one({'name':defender['name']},{'$inc':{'number_of_lose':1}})
+                col_pokemon.update_one({'name':attacker['name']},{'$inc':{'number_of_win':1}})
+                col_pokemon.update_one({'name':defender['name']},{'$inc':{'number_of_lose':1}})
                 st.header(f"{attacker['name'].capitalize()}")
                 st.subheader("wins the battle!")
                 st.image(attacker["image_url"])
             elif attacker['hp']< defender['hp']:
-                get_data[1].update_one({'name':defender['name']},{'$inc':{'number_of_win':1}})
-                get_data[1].update_one({'name':attacker['name']},{'$inc':{'number_of_lose':1}})
+                col_pokemon.update_one({'name':defender['name']},{'$inc':{'number_of_win':1}})
+                col_pokemon.update_one({'name':attacker['name']},{'$inc':{'number_of_lose':1}})
                 st.header(f"{defender['name'].capitalize()}")
                 st.subheader("wins the battle!")
                 st.image(defender["image_url"])
