@@ -17,14 +17,11 @@ from pymongo.mongo_client import MongoClient
 # Initialize connection
 @st.cache_resource
 def init_connection():
-    # db_username = st.secrets["db_username"]
-    password = st.secrets["db_pswd"]
-    # cluster_name = st.secrets["cluster_name"]
-    return MongoClient(f"mongodb+srv://sailormoonvicky:{password}@vickycluster.o5avjws.mongodb.net/?retryWrites=true&w=majority")
+    return pymongo.MongoClient(**st.secrets["mongo"])
 
 client = init_connection()
 # Pull data from the collection.
-@st.cache_resource
+@st.cache_data(ttl=600)
 def get_data():
     pokemo_db = client.pokemo_game
     col_pokemon = pokemo_db.pokemos
