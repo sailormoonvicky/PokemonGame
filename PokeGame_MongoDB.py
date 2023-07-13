@@ -16,7 +16,7 @@ from pymongo.mongo_client import MongoClient
 
 # Initialize connection
 @st.cache_resource
-@st.experimental_singleton(suppress_st_warning=True)
+@st.experimental_singleton
 def init_connection():
     return MongoClient("mongodb+srv://st.secrets.db_username:st.secrets.db_pswd@st.secrets.cluster_name.n4ycr4f.mongodb.net/?retryWrites=true&w=majority")
 
