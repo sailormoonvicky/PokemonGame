@@ -16,19 +16,17 @@ from pymongo.mongo_client import MongoClient
 
 # Initialize connection
 @st.cache_resource
-@st.experimental_singleton
 def init_connection():
-    return MongoClient("mongodb+srv://st.secrets.db_username:st.secrets.db_pswd@st.secrets.cluster_name.n4ycr4f.mongodb.net/?retryWrites=true&w=majority")
+    return MongoClient("mongodb+srv://st.secrets.db_username:st.secrets.db_pswd@st.secrets.cluster_name.o5avjws.mongodb.net/?retryWrites=true&w=majority")
 
 client = init_connection()
 # Pull data from the collection.
-@st.experimental_memo(ttl=60)
+@st.cache_data(ttl=600)
 def get_data():
     pokemo_db = client.pokemo_game
     col_pokemon = pokemo_db.pokemos
     return pokemo_db,col_pokemon
-pokemon_db = get_data[0]
-col_pokemon = get_data[1]
+pokemon_db, col_pokemon = get_data()
 
 # Helper function to retrieve Pokemon data from MongoDB
 def get_pokemon_data(name):
