@@ -12,12 +12,13 @@ POKEMON_LIST = ["bulbasaur", "charmander", "squirtle", "pikachu", "chikorita", "
                 "totodile", "treecko", "torchic", "mudkip", "turtwig", "chimchar", "piplup"]
 
 # Client connects to MongoDB
-from pymongo.mongo_client import MongoClient
+from pymongo import MongoClient
 
 # Initialize connection
 @st.cache_resource
 def init_connection():
-    return pymongo.MongoClient(**st.secrets["mongo"])
+    # password = st.secrets.db_pswd
+    return MongoClient("mongodb+srv://sailormoonvicky:"+st.secrets.db_pswd+"@vickycluster.o5avjws.mongodb.net/?retryWrites=true&w=majority")
 
 client = init_connection()
 # Pull data from the collection.
