@@ -17,10 +17,10 @@ from pymongo.mongo_client import MongoClient
 # Initialize connection
 @st.cache_resource
 def init_connection():
-    db_username = st.secrets["db_username"]
-    db_password = st.secrets["db_pswd"]
-    cluster_name = st.secrets["cluster_name"]
-    return MongoClient(f"mongodb+srv://{db_username}:{db_password}@{cluster_name}.o5avjws.mongodb.net/?retryWrites=true&w=majority")
+    # db_username = st.secrets["db_username"]
+    password = st.secrets["db_pswd"]
+    # cluster_name = st.secrets["cluster_name"]
+    return MongoClient(f"mongodb+srv://sailormoonvicky:{password}@vickycluster.o5avjws.mongodb.net/?retryWrites=true&w=majority")
 
 client = init_connection()
 # Pull data from the collection.
