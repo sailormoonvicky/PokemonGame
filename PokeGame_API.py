@@ -17,7 +17,7 @@ def get_pokemon_data(name):
     response = requests.get(f"{POKEAPI_URL}{name}").json()
     return {
         "name": response["name"],
-        "image_url": response["sprites"]["front_default"],
+        "image_url": response["sprites"]["other"]['home']["front_default"],
         "type": response["types"][0]["type"]["name"],
         "hp": response["stats"][0]["base_stat"],
         "attack": response["stats"][1]["base_stat"],
@@ -30,9 +30,11 @@ def calculate_damage(attacker, defender):
     a_speed = attacker["speed"]  # The speed value of attacking pokemon
     defense = defender["defense"]  # The attack value of defending pokemon
     d_speed = defender["speed"]  # The speed value of defending pokemon
-    modifier = random.uniform(0.85, 1.0)  # Apply a random damage modifier between 0.85 and 1.0
-    damage = (attack*a_speed*0.01-defense*d_speed*0.01) * modifier
-    return int(abs(damage))
+    modifier = random.uniform(0.75, 1.0)  # Apply a random damage modifier between 0.85 and 1.0
+    damage = (attack*a_speed*0.02-defense*d_speed*0.01) * modifier
+    if int(damage)>=0:
+        return int(damage)
+    else: return 0
 
 
 # Define the game logic for 1 player mode
@@ -43,19 +45,18 @@ def play_1player_mode():
     st.image(player_pokemon_data["image_url"])
     st.info(f"{player_pokemon_data['name'].capitalize()} - Type: {player_pokemon_data['type']}, HP: {player_pokemon_data['hp']}, Attack: {player_pokemon_data['attack']}, Defense: {player_pokemon_data['defense']}, Speed: {player_pokemon_data['speed']}")
 
-
-    #CPU choose a random pokemon
-    cpu_pokemon = POKEMON_LIST[random.randrange(len(POKEMON_LIST))]
-    cpu_pokemon_data = get_pokemon_data(cpu_pokemon)
-    st.image(cpu_pokemon_data["image_url"])
-    st.info(f"{cpu_pokemon_data['name'].capitalize()} - Type: {cpu_pokemon_data['type']}, HP: {cpu_pokemon_data['hp']}, Attack: {cpu_pokemon_data['attack']}, Defense: {cpu_pokemon_data['defense']}, Speed: {cpu_pokemon_data['speed']}")
-
     # Start the battle
-    if st.button("Battle Start!"):
+    if st.button("Start Battle Now!"):
         st.session_state["battle_started"] = True
+    else: st.session_state["battle_started"] = False
 
     # Check if the battle has started
     if st.session_state.get("battle_started", False):
+        #CPU choose a random pokemon
+        cpu_pokemon = POKEMON_LIST[random.randrange(len(POKEMON_LIST))]
+        cpu_pokemon_data = get_pokemon_data(cpu_pokemon)
+        st.image(cpu_pokemon_data["image_url"])
+        st.info(f"{cpu_pokemon_data['name'].capitalize()} - Type: {cpu_pokemon_data['type']}, HP: {cpu_pokemon_data['hp']}, Attack: {cpu_pokemon_data['attack']}, Defense: {cpu_pokemon_data['defense']}, Speed: {cpu_pokemon_data['speed']}")
 
         # Randomly select the first attacker
         if random.randint(0,1)==1:
