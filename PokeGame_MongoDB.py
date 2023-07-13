@@ -24,7 +24,7 @@ def init_connection():
 
 client = init_connection()
 # Pull data from the collection.
-@st.cache_resource(allow_output_mutation=True)
+@st.cache_resource
 def get_data():
     pokemo_db = client.pokemo_game
     col_pokemon = pokemo_db.pokemos
