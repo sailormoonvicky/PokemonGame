@@ -4,9 +4,6 @@ import random
 import time
 import pymongo
 import pandas as pd
-import os
-from dotenv import load_dotenv
-
 
 
 st.set_page_config(page_title="PokemonGame", page_icon="https://slackmojis.com/emojis/186-pokeball/download", initial_sidebar_state="expanded")
@@ -14,19 +11,23 @@ st.set_page_config(page_title="PokemonGame", page_icon="https://slackmojis.com/e
 POKEMON_LIST = ["bulbasaur", "charmander", "squirtle", "pikachu", "chikorita", "cyndaquil",
                 "totodile", "treecko", "torchic", "mudkip", "turtwig", "chimchar", "piplup"]
 
-# Client connects to "localhost" by default
+# Client connects to MongoDB
 from pymongo.mongo_client import MongoClient
-load_dotenv()
-uri = os.getenv("MONGODB_URI")
-# Create a new client and connect to the server
-client = MongoClient(uri)
+# Initialize connection.
+# Uses st.cache_resource to only run once.
+@st.cache_resource
+def init_connection():
+    return pymongo.MongoClient(**st.secrets["mongo"])
 
-# fetch data for pokemo project from database in MongoDB
-pokemo_db = client['pokemo_game']
-col_pokemon = pokemo_db['pokemos']
+client = init_connection()
+# Pull data from the collection.
+# Uses st.cache_data to only rerun when the query changes or after 10 min.
+@st.cache_data(ttl=600)
 
 # Helper function to retrieve Pokemon data from MongoDB
 def get_pokemon_data(name):
+    pokemo_db = client['pokemo_game']
+    col_pokemon = pokemo_db['pokemos']
     query = {'name':name}
     data = col_pokemon.find(query)
     for d in data:
