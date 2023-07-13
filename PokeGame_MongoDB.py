@@ -4,6 +4,10 @@ import random
 import time
 import pymongo
 import pandas as pd
+import os
+from dotenv import load_dotenv
+
+
 
 st.set_page_config(page_title="PokemonGame", page_icon="https://slackmojis.com/emojis/186-pokeball/download", initial_sidebar_state="expanded")
 
@@ -12,7 +16,8 @@ POKEMON_LIST = ["bulbasaur", "charmander", "squirtle", "pikachu", "chikorita", "
 
 # Client connects to "localhost" by default
 from pymongo.mongo_client import MongoClient
-uri = "mongodb+srv://sailormoonvicky:y84gtdQ2mexx8LcL@vickycluster.o5avjws.mongodb.net/?retryWrites=true&w=majority"
+load_dotenv()
+uri = os.getenv("MONGODB_URI")
 # Create a new client and connect to the server
 client = MongoClient(uri)
 
