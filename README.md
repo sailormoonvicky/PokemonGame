@@ -1,5 +1,7 @@
 # Pokemon Battle Game
 
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR7H1ZMJkVYiKmC_-TxnFh44TRNyPY8H8Sug&usqp=CAU">
+
 Welcome to the Pokemon Battle Game! This Streamlit web application allows users to play a Pokemon battle game in either single-player or two-player mode. The game data is fetched from the [Pokemon API](https://pokeapi.co/) to provide information about the selected Pokemon.
 
 ## Demo
@@ -67,7 +69,3 @@ The game data is stored in a MongoDB database. Ensure that you have a MongoDB se
 ## Contributing
 
 Contributions to the Pokemon Battle Game are welcome! If you encounter any issues or have suggestions for improvements, please create a new issue or submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
