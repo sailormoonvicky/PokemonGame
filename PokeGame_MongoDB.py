@@ -13,19 +13,19 @@ POKEMON_LIST = ["bulbasaur", "charmander", "squirtle", "pikachu", "chikorita", "
 
 # Client connects to MongoDB
 from pymongo.mongo_client import MongoClient
-# Initialize connection.
-# Uses st.cache_resource to only run once.
+
+# Initialize connection
 @st.cache_resource
+@st.experimental_singleton(suppress_st_warning=True)
 def init_connection():
-    return pymongo.MongoClient(**st.secrets["mongo"])
+    return MongoClient("mongodb+srv://st.secrets.db_username:st.secrets.db_pswd@st.secrets.cluster_name.n4ycr4f.mongodb.net/?retryWrites=true&w=majority")
 
 client = init_connection()
 # Pull data from the collection.
-# Uses st.cache_data to only rerun when the query changes or after 10 min.
-@st.cache_data(ttl=600)
+@st.experimental_memo(ttl=60)
 def get_data():
-    pokemo_db = client['pokemo_game']
-    col_pokemon = pokemo_db['pokemos']
+    pokemo_db = client.pokemo_game
+    col_pokemon = pokemo_db.pokemos
     return pokemo_db,col_pokemon
 pokemon_db = get_data[0]
 col_pokemon = get_data[1]
