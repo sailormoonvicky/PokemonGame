@@ -21,7 +21,7 @@ The code for the API Game can be found in the [PokeGame_API.py](PokeGame_API.py)
 
 ### Demo
 
-You can try out the Pokemon Battle Game by visiting the following URL: [https://pokemongame.streamlit.app/](https://pokemongame.streamlit.app/)
+You can try out the Pokemon Battle Game by visiting the following URL: [https://pokemonggameapi.streamlit.app/](https://pokemonggameapi.streamlit.app/).
 
 ## Database Game
 
@@ -38,6 +38,8 @@ The Database Game application retrieves data from a MongoDB database and allows 
 
 The code for the Database Game can be found in the [PokeGame_MongoDB.py](PokeGame_MongoDB.py) file.
 
+### Demo
+You can try out the Pokemon Battle Game by visiting the following URL: [https://pokemongame.streamlit.app/](https://pokemongame.streamlit.app/).
 
 ## Team and Pokemon Selection
 
